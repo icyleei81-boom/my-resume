@@ -1,0 +1,3046 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iiicyleei</title>
+  <meta name="description" content="iiicyleei — HR 数据化运营 · B端用户研究 · 小红书内容运营 · AIGC 工作流" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Lora', 'Georgia', 'Times New Roman', 'serif'],
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+          },
+          colors: { canvas: '#FFFDF6' },
+        },
+      },
+    };
+  </script>
+
+  <style>
+html {
+  background-color: #FFFDF6;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  background-image:
+    url('covers/backgrounds/water-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  cursor: url('covers/cursor/butterfly-cursor.png') 16 16, auto;
+}
+    .font-display {
+  font-family: 'Roboto Slab', 'Georgia', serif;
+  letter-spacing: -0.02em;
+}
+
+    .typewriter-cursor::after {
+      content: '|';
+      display: inline-block;
+      margin-left: 2px;
+      color: rgba(15, 23, 42, 0.55);
+      animation: blink 1s step-end infinite;
+    }
+    .typewriter-cursor.done::after {
+      animation: blink 1.2s step-end infinite;
+      opacity: 0.6;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
+      mix-blend-mode: multiply;
+    }
+
+    @keyframes blob-float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.06); }
+      66% { transform: translate(-20px, 25px) scale(0.96); }
+    }
+    .blob-auto { animation: blob-float 24s ease-in-out infinite; }
+
+    .glass-card {
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.3s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.1);
+    }
+
+    .link-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-origin: center center;
+}
+
+.link-card:hover {
+  transform: scale(1.03);
+}
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .skill-tag {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .skill-tag:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+    .skills-word-cloud {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+  overflow: visible;
+}
+
+.skill-cloud-item {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+  white-space: nowrap;
+  transform-origin: center center;
+  /* 只保留这两个过渡，去掉 left/top */
+  transition:
+    box-shadow 0.28s ease;
+  will-change: transform;
+  cursor: default;
+}
+
+.skill-cloud-item:hover {
+  z-index: 50;
+  animation: bubble-bounce 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+}
+
+@keyframes bubble-bounce {
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  35%  { transform: translate(-50%, -50%) scale(1.22); }
+  55%  { transform: translate(-50%, -50%) scale(0.96); }
+  75%  { transform: translate(-50%, -50%) scale(1.12); }
+  90%  { transform: translate(-50%, -50%) scale(1.04); }
+  100% { transform: translate(-50%, -50%) scale(1.08); }
+}
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    #bg-image-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('covers/backgrounds/flower-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.10;
+}
+/* 确保背景容器占满全屏，且固定在后台 */
+#dot-grid-bg {
+  position: fixed; /* 或者 absolute，取决于你的布局 */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;     /* 关键：确保在所有文字和内容的下方 */
+  overflow: hidden;
+}
+
+/* 确保 Canvas 撑满容器 */
+#dot-grid-bg canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/*body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.14;
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  background-size: 24px 32px;
+} */
+        /* 微信视频号二维码弹层 */
+        #wx-qr-modal.hidden {
+      display: none;
+    }
+    #wx-qr-modal {
+      display: flex;
+    }
+    #wx-qr-modal .qr-panel {
+      animation: qr-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @keyframes qr-pop {
+      from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    /* 横向封面滑动条 */
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .post-carousel-zone {
+      position: relative;
+      margin-top: 1.25rem;
+      margin-bottom: 1.25rem;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    .post-carousel-zone::before,
+    .post-carousel-zone::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 18%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .post-carousel-zone::before {
+      left: 0;
+      background: linear-gradient(to right, rgba(255, 253, 246, 0.95), transparent);
+    }
+    .post-carousel-zone::after {
+      right: 0;
+      background: linear-gradient(to left, rgba(255, 253, 246, 0.95), transparent);
+    }
+    .post-carousel-zone.is-scroll-left::before,
+    .post-carousel-zone.is-scroll-right::after {
+      opacity: 1;
+    }
+
+    .post-carousel-track {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      padding: 0.5rem 0.25rem 0.75rem;
+      cursor: grab;
+    }
+    .post-carousel-track.is-dragging {
+      cursor: grabbing;
+      scroll-behavior: auto;
+    }
+
+    .post-cover {
+      position: relative;
+      flex-shrink: 0;
+      width: 9.5rem;
+      height: 12.5rem;
+      border-radius: 0.85rem;
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      background: #f8fafc;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    }
+    @media (min-width: 640px) {
+      .post-cover {
+        width: 11rem;
+        height: 14.5rem;
+      }
+    }
+
+    .post-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                  filter 0.45s ease;
+    }
+
+    .post-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+
+    .post-cover:hover img {
+      transform: scale(1.05);
+      filter: brightness(1.08) saturate(1.05);
+    }
+    .post-cover:hover::after {
+      opacity: 1;
+    }
+
+    .post-cover-label {
+      position: absolute;
+      left: 0.5rem;
+      bottom: 0.5rem;
+      z-index: 1;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.85);
+      color: #334155;
+      backdrop-filter: blur(4px);
+    }    
+    .xhs-section {
+  position: relative;
+}
+
+.xhs-account-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  transition: transform 0.32s ease, box-shadow 0.32s ease;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.xhs-account-card:hover {
+  transform: translateY(-2px) scale(1.012);
+  box-shadow: 0 18px 40px -24px rgba(15, 23, 42, 0.22);
+}
+
+.xhs-account-card .xhs-posts {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-8px);
+  transition: max-height 0.42s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease, transform 0.28s ease;
+}
+
+.xhs-account-card.is-expanded .xhs-posts {
+  max-height: 1600px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.xhs-post {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.9rem;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.xhs-post:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 14px 28px -18px rgba(15, 23, 42, 0.2);
+}
+
+.xhs-post img {
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.xhs-post:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.84) saturate(1.02);
+}
+
+.xhs-post .view-pill {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  opacity: 0;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.xhs-post:hover .view-pill {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.xhs-post::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.02), rgba(15, 23, 42, 0.26));
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  z-index: 1;
+}
+
+.xhs-post:hover::after {
+  opacity: 1;
+}
+
+.xhs-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.xhs-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  line-height: 1;
+  padding: 0.42rem 0.55rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+}
+
+.xhs-stat svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
+}
+
+.detail-panel {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.detail-panel.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .xhs-account-card.is-expanded .xhs-posts {
+    max-height: 2200px;
+  }
+}
+    .folder-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.folder-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 18px 40px -24px rgba(15, 23, 42, 0.22);
+}
+
+.folder-overlay {
+  transition: opacity 0.28s ease, background 0.28s ease;
+}
+
+.detail-panel {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.detail-panel.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.post-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.85rem;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.post-item:hover {
+  transform: translateY(-2px);
+}
+
+.post-item img {
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.post-item:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.82) saturate(1.02) blur(0.2px);
+}
+
+.post-item .view-pill {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  opacity: 0;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.post-item:hover .view-pill {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.post-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.05), rgba(15, 23, 42, 0.25));
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  z-index: 1;
+}
+
+.post-item:hover::after {
+  opacity: 1;
+}
+
+.post-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem 0.8rem;
+  margin-top: 0.75rem;
+}
+
+.stat-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  line-height: 1;
+  padding: 0.42rem 0.55rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+}
+
+.stat-chip svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
+}
+/* ===== XHS 3D Stack ===== */
+.xhs-stack-stage {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  overflow: visible;
+  position: relative;
+  left: -180px; /* 舞台整体左移，和上层账号卡对齐 */
+}
+
+.xhs-row-stack {
+  position: relative;
+  height: 100%;
+  overflow: visible;
+  display: block;
+}
+
+.xhs-row-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  display: block;
+  text-decoration: none;
+  transform-origin: center center;
+  background: #fff; /* 关键：卡片底部改成白色 */
+  transition:
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
+  border: 1px solid rgba(232, 232, 248, 0.35);
+border-radius: 0.5rem;
+}
+
+.xhs-row-card:hover {
+  box-shadow: 0 22px 40px -18px rgba(15, 23, 42, 0.28);
+}
+
+.xhs-row-media {
+  position: relative;
+  aspect-ratio: 1.4 / 1;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.xhs-row-media .cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.xhs-row-card:hover .cover {
+  transform: scale(1.04);
+  filter: brightness(0.88) saturate(1.02);
+}
+
+.xhs-row-meta {
+  margin-top: 0.7rem;
+  padding: 0.65rem 0.95rem 0.8rem;
+}
+
+.xhs-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.3rem;
+  margin-top: 0.45rem;
+}
+
+.metric-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.12rem;
+  padding: 0.10rem 0.38rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+  color: #64748b;
+  font-size: 0.58rem;
+  line-height: 1;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.metric-chip svg {
+  width: 0.68rem;
+  height: 0.68rem;
+  flex-shrink: 0;
+  color: #94a3b8;
+}
+
+.xhs-stack-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(100%, 150px);
+  aspect-ratio: 0.78 / 1;
+  border-radius: 1.15rem;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  transition:
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 16px 30px -20px rgba(15, 23, 42, 0.22);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.xhs-stack-card .cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease, filter 0.35s ease;
+  will-change: transform, filter;
+}
+
+.xhs-stack-card:hover .cover {
+  transform: scale(1.04);
+  filter: brightness(0.86) saturate(1.02);
+}
+
+.xhs-stack-card .view-pill {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  opacity: 0;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.xhs-stack-card:hover .view-pill {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.xhs-stack-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.02), rgba(15, 23, 42, 0.24));
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  z-index: 1;
+}
+
+.xhs-stack-card:hover::after {
+  opacity: 1;
+}
+
+.xhs-stack-card .post-meta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: 0.9rem 1rem;
+  color: #fff;
+  background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.75));
+}
+
+.xhs-stack-card:hover {
+  box-shadow: 0 22px 40px -18px rgba(15, 23, 42, 0.28);
+}
+
+.js-xhs-account-card {
+  position: relative;
+  isolation: isolate;
+  transform: translateY(0) scale(1);
+  transition: transform 0.3s ease;
+}
+
+.js-xhs-account-card:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.detail-panel {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.detail-panel.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .xhs-stack-stage {
+    height: 410px;
+  }
+}
+
+  /* 针对 Webkit 内核浏览器（Chrome, Safari, Edge）美化左侧滚动条 */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px; /* 把它缩窄到 4px，极简不突兀 */
+  }
+  
+  /* 滚动条轨道：设为透明，隐藏难看的底层灰色 */
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  
+  /* 滚动条滑块：改成非常浅的渐隐灰色，鼠标悬浮时稍微变深一点 */
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(15, 23, 42, 0.08); /* 极浅的灰色 */
+    border-radius: 9999px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(15, 23, 42, 0.18); 
+  }
+
+  /* 如果你想在视觉上完全消灭这个滚动条（但保留滚动功能），直接用下面这一行 */
+  /* .custom-scrollbar { -webkit-overflow-scrolling: touch; scrollbar-width: none; } */
+  /* .custom-scrollbar::-webkit-scrollbar { display: none; } */
+/* ===== heading wobble hover ===== */
+.wobble-title {
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.wobble-char {
+  display: inline-block;
+  transform-origin: 50% 80%;
+  will-change: transform;
+}
+
+.wobble-char.is-wobbling {
+  animation: wobble-char 0.75s infinite ease-in-out;
+}
+
+@keyframes wobble-char {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); }
+  20%  { transform: translate3d(-1px, 1px, 0) rotate(-2deg); }
+  40%  { transform: translate3d(1px, -1px, 0) rotate(2.5deg); }
+  60%  { transform: translate3d(-1px, 0px, 0) rotate(-1.5deg); }
+  80%  { transform: translate3d(1px, 1px, 0) rotate(1.5deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+}
+
+/* 1. 锁定所有基础元素以及悬停状态 */
+*, 
+*::before, 
+*::after,
+html, 
+body, 
+a, 
+button, 
+input, 
+select, 
+textarea,
+[role="button"] {
+  cursor: none !important;
+}
+
+#bg-image-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('covers/backgrounds/water-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.20; /* 这里调透明度 */
+}
+
+/* 2. 锁定链接和按钮在准备点击（hover）和点击（active）时的状态 */
+a:hover, 
+button:hover, 
+a:active, 
+button:active,
+a:focus, 
+button:focus,
+[role="button"]:hover,
+[role="button"]:active,
+[role="button"]:focus {
+  cursor: none !important;
+}
+/* 1. 隐藏全站原生鼠标指针 */
+*, 
+html, 
+body, 
+a, 
+button, 
+[role="button"] {
+  cursor: none !important;
+}
+
+/* 可选：如果你还有 input / textarea，也一起隐藏 */
+input,
+textarea,
+select {
+  cursor: none !important;
+}
+
+/* 2. 自定义鼠标容器 */
+#custom-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 9999;
+  transform-origin: center center;
+  opacity: 1;
+  transition:
+    background-image 0.15s ease,
+    opacity 0.2s ease;
+  will-change: transform, opacity;
+  /* 默认：收起状态 */
+  background-image: url('covers/cursor/umbrella-closed.png');
+}
+
+#custom-cursor.is-hovered {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+#custom-cursor.is-clicked {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+}
+
+#celebrate-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
+}
+
+.celebrate-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  pointer-events: none;
+  will-change: transform, opacity;
+  opacity: 0;
+}
+
+/* ===== CN name floating reveal ===== */
+.cn-name {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.02em;
+  min-height: 1.2em;
+  margin-top: 0.1rem;
+  margin-bottom: 0.15rem;
+}
+
+.cn-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  filter: blur(2px);
+  animation:
+    cn-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    cn-float 3.8s ease-in-out infinite;
+  animation-delay: var(--delay), calc(var(--delay) + 0.75s);
+  will-change: transform, opacity, filter;
+}
+
+@keyframes cn-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes cn-float {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) translateX(0.5px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(1px) translateX(-0.5px) rotate(1deg);
+  }
+  75% {
+    transform: translateY(-1px) translateX(0.3px) rotate(-0.5deg);
+  }
+}
+
+.float-title {
+  display: inline-block;
+  animation: float-title 3.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes float-title {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes section-float {
+  0%   { transform: translateY(0px)   scale(1); }
+  20%  { transform: translateY(-6px)  scale(1.003); }
+  40%  { transform: translateY(0px)   scale(1); }
+  60%  { transform: translateY(-3px)  scale(1.0015); }
+  80%  { transform: translateY(0px)   scale(1); }
+  100% { transform: translateY(0px)   scale(1); }
+}
+
+.section-hovering {
+  animation: section-float 2.4s cubic-bezier(0.37, 0, 0.63, 1) 1 forwards;
+}
+
+  </style>
+</head>
+
+<body class="bg-canvas text-slate-600 antialiased overflow-x-hidden">
+  <div id="custom-cursor" aria-hidden="true"></div>
+  <div id="celebrate-particles" aria-hidden="true"></div>
+  <div id="dot-grid-bg" aria-hidden="true"></div>
+
+  <!-- ========== RAIN EFFECT ========== -->
+<canvas id="rain-canvas" aria-hidden="true"></canvas>
+
+<style>
+#rain-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2; /* dot-grid-bg 是 z-index:1，这里是2，内容是z-index:10+ */
+}
+</style>
+
+<script>
+(function () {
+
+  /* ═══════════════════════════════════════
+     🎛️  参数区 —— 只需改这里
+     ═══════════════════════════════════════ */
+  const CFG = {
+    // 雨滴外观
+    type: 'rain',       // 'rain' = 雨滴  |  'snow' = 雪花  |  'sakura' = 樱花瓣
+    color: 'rgba(255, 255, 255, 0.55)',  // 雨滴颜色，改 rgba 最后一位调透明度
+
+    // 数量与速度
+    count: 80,          // 雨滴数量，越大越密集，建议 40~200
+    speedMin: 8,        // 最慢速度（px/帧）
+    speedMax: 16,       // 最快速度
+
+    // 雨滴形状（type='rain' 时生效）
+    lengthMin: 12,      // 雨线最短长度 px
+    lengthMax: 28,      // 雨线最长长度 px
+    angle: 15,          // 倾斜角度，0 = 垂直，正数 = 向右斜
+
+    // 雪花/樱花大小（type='snow'/'sakura' 时生效）
+    sizeMin: 3,
+    sizeMax: 9,
+
+    // 溅起效果
+    splashEnabled: true,   // true = 开启溅起  |  false = 关闭
+    splashCount: 5,        // 每滴溅起的粒子数
+    splashSpread: 38,      // 溅起扩散半径 px
+    splashDuration: 30,    // 溅起动画帧数，越大越慢消失
+  };
+  /* ═══════════════════════════════════════ */
+
+
+  const canvas = document.getElementById('rain-canvas');
+  const ctx = canvas.getContext('2d');
+
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const RAD = Math.PI / 180;
+  const splashes = [];
+
+  // ── 初始化雨滴 ──────────────────────────
+  function makeDrops() {
+    return Array.from({ length: CFG.count }, () => randomDrop(true));
+  }
+
+  function randomDrop(init = false) {
+    const speed = CFG.speedMin + Math.random() * (CFG.speedMax - CFG.speedMin);
+    return {
+      x: Math.random() * W,
+      y: init ? Math.random() * H : -40,   // 初始化时随机分布，新生时从顶部
+      speed,
+      length: CFG.lengthMin + Math.random() * (CFG.lengthMax - CFG.lengthMin),
+      size: CFG.sizeMin + Math.random() * (CFG.sizeMax - CFG.sizeMin),
+      opacity: 0.35 + Math.random() * 0.55,
+      wobble: Math.random() * Math.PI * 2,  // 雪花左右飘用
+    };
+  }
+
+  let drops = makeDrops();
+
+  // ── 溅起粒子 ────────────────────────────
+  function spawnSplash(x, y) {
+    if (!CFG.splashEnabled) return;
+    for (let i = 0; i < CFG.splashCount; i++) {
+      const angle = Math.random() * Math.PI;        // 只往上半圆溅
+      const speed = 1.5 + Math.random() * 3.5;
+      splashes.push({
+        x, y,
+        vx: Math.cos(angle) * speed * (Math.random() > 0.5 ? 1 : -1),
+        vy: -Math.sin(angle) * speed,
+        life: CFG.splashDuration,
+        maxLife: CFG.splashDuration,
+        size: 1.5 + Math.random() * 2,
+      });
+    }
+  }
+
+  // ── 绘制单帧 ────────────────────────────
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    drops.forEach((d, i) => {
+
+      // —— 雨滴 ——
+      if (CFG.type === 'rain') {
+        const dx = Math.sin(CFG.angle * RAD) * d.length;
+        const dy = Math.cos(CFG.angle * RAD) * d.length;
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x + dx, d.y + dy);
+        ctx.strokeStyle = CFG.color.replace(/[\d.]+\)$/, `${d.opacity})`);
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+      // —— 雪花 ——
+      } else if (CFG.type === 'snow') {
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.size / 2, 0, Math.PI * 2);
+        ctx.fillStyle = CFG.color.replace(/[\d.]+\)$/, `${d.opacity})`);
+        ctx.fill();
+
+      // —— 樱花瓣 ——
+      } else if (CFG.type === 'sakura') {
+        ctx.save();
+        ctx.translate(d.x, d.y);
+        ctx.rotate(d.wobble);
+        ctx.scale(d.size / 8, d.size / 8);
+        ctx.beginPath();
+        // 简单花瓣形：两段贝塞尔
+        ctx.moveTo(0, -8);
+        ctx.bezierCurveTo(5, -8, 8, -2, 0, 4);
+        ctx.bezierCurveTo(-8, -2, -5, -8, 0, -8);
+        ctx.fillStyle = CFG.color.replace(/[\d.]+\)$/, `${d.opacity})`);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // —— 移动 ——
+      if (CFG.type === 'snow' || CFG.type === 'sakura') {
+        d.wobble += 0.03;
+        d.x += Math.sin(d.wobble) * 0.7;   // 左右飘
+        d.y += d.speed * 0.4;
+      } else {
+        d.x += Math.sin(CFG.angle * RAD) * d.speed * 0.5;
+        d.y += d.speed;
+      }
+
+      // —— 落到底部：溅起 + 重置 ——
+      if (d.y > H + 20) {
+        spawnSplash(d.x, H - 2);
+        drops[i] = randomDrop(false);
+      }
+    });
+
+    // —— 绘制溅起粒子 ——
+    for (let i = splashes.length - 1; i >= 0; i--) {
+      const s = splashes[i];
+      const alpha = (s.life / s.maxLife) * 0.7;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size * (s.life / s.maxLife), 0, Math.PI * 2);
+      ctx.fillStyle = CFG.color.replace(/[\d.]+\)$/, `${alpha})`);
+      ctx.fill();
+
+      s.x += s.vx;
+      s.y += s.vy;
+      s.vy += 0.18;   // 重力
+      s.life--;
+
+      if (s.life <= 0) splashes.splice(i, 1);
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>
+
+  <!-- ========== BACKGROUND BLOBS + FROSTED GLASS ========== -->
+  <div id="bg-image-layer" aria-hidden="true"></div>
+  <div id="blob-container" class="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <div id="blob-1" class="blob blob-auto" style="top:-15%;left:-12%;width:55vw;height:55vw;max-width:680px;max-height:680px;background:radial-gradient(circle at 30% 30%,rgba(251,146,60,0.42) 0%,rgba(244,114,182,0.28) 35%,transparent 68%);filter:blur(90px);"></div>
+    <div id="blob-2" class="blob blob-auto" style="top:20%;right:-18%;width:50vw;height:50vw;max-width:620px;max-height:620px;background:radial-gradient(circle at 60% 40%,rgba(56,189,248,0.38) 0%,rgba(99,102,241,0.22) 40%,transparent 70%);filter:blur(100px);animation-delay:-8s;"></div>
+    <div id="blob-3" class="blob blob-auto" style="bottom:-10%;left:15%;width:48vw;height:48vw;max-width:580px;max-height:580px;background:radial-gradient(circle at 50% 50%,rgba(52,211,153,0.35) 0%,rgba(45,212,191,0.2) 45%,transparent 72%);filter:blur(95px);animation-delay:-14s;"></div>
+    <div id="blob-4" class="blob blob-auto" style="top:45%;right:20%;width:38vw;height:38vw;max-width:460px;max-height:460px;background:radial-gradient(circle at 50% 50%,rgba(253,186,116,0.32) 0%,rgba(167,139,250,0.18) 50%,transparent 75%);filter:blur(85px);animation-delay:-5s;"></div>
+    <div class="absolute inset-0 bg-canvas/50 backdrop-blur-3xl"></div>
+  </div>
+
+  <div class="relative z-10 min-h-screen">
+    <div class="w-full max-w-[1600px] mx-auto px-6 py-10 md:py-0 md:pl-8 md:pr-10 lg:pl-12 lg:pr-16">
+      <div class="grid grid-cols-1 md:grid-cols-[340px_minmax(0,1fr)] md:gap-8 lg:gap-16 items-start">
+
+        <!-- ==================== LEFT STICKY SIDEBAR ==================== -->
+        <aside class="md:sticky md:top-0 md:h-screen md:overflow-y-auto flex flex-col justify-center items-start py-8 md:py-12 custom-scrollbar">
+          <div class="space-y-6 rounded-2xl border border-slate-200/70 bg-white/55 backdrop-blur-2xl p-6 sm:p-7 shadow-lg shadow-slate-200/40">
+
+            <div>
+              <p class="text-xs uppercase tracking-[0.25em] text-slate-400 mb-3">Portfolio / Resume</p>
+              <h1 id="typewriter-name" class="font-display text-4xl sm:text-5xl font-semibold text-slate-900 tracking-tight typewriter-cursor min-h-[1.2em]" data-celebrate></h1>
+
+              <div id="cn-name" class="cn-name font-display text-1xl sm:text-2xl font-semibold text-amber-900 tracking-tight"></div>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 text-xs rounded-full border border-slate-200/80 bg-white/70 text-slate-600">AI Workflow Explorer</span>
+              <span class="px-3 py-1 text-xs rounded-full border border-amber-200 bg-amber-50/90 text-amber-800">INFJ Backpacker</span>
+              <span class="px-3 py-1 text-xs rounded-full border border-sky-200 bg-blue-50/90 text-sky-800">Human Resources Practitioner</span>
+            </div>
+
+            <div class="flex flex-col gap-2.5">
+              <a href="mailto:1494938502@qq.com"
+                 class="group flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200/80 bg-white/75 hover:bg-white hover:border-slate-300 shadow-sm transition-all duration-300">
+                <svg class="w-4 h-4 text-slate-500 group-hover:text-orange-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <span class="text-sm text-slate-700">1494938502@qq.com</span>
+              </a>
+              <a href="tel:15814819725"
+                 class="group flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200/80 bg-white/75 hover:bg-white hover:border-slate-300 shadow-sm transition-all duration-300">
+                <svg class="w-4 h-4 text-slate-500 group-hover:text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                <span class="text-sm text-slate-700">158 1481 9725</span>
+              </a>
+              <a href="https://xhslink.com/m/7B9iwjIs1Mf" target="_blank" rel="noopener noreferrer"
+              class="group flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200/80 bg-white/75 hover:bg-white hover:border-slate-300 shadow-sm transition-all duration-300">
+              <svg class="w-4 h-4 text-slate-500 group-hover:text-rose-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h2.1a1.5 1.5 0 0 0 1.2-.6l.7-1A1.5 1.5 0 0 1 11.7 3h.6a1.5 1.5 0 0 1 1.2.6l.7 1a1.5 1.5 0 0 0 1.2.6h2.1A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M17 8.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+             <span class="text-sm text-slate-700">小红书 · 李大白大王</span>
+             <svg class="w-3.5 h-3.5 ml-auto text-slate-400 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+             </svg>
+             </a>
+           <a href="https://xhslink.com/m/3FGIXdVPj1B" target="_blank" rel="noopener noreferrer"
+           class="group flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200/80 bg-white/75 hover:bg-white hover:border-slate-300 shadow-sm transition-all duration-300">
+           <svg class="w-4 h-4 text-slate-500 group-hover:text-rose-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 5.5A2.5 2.5 0 0 1 7.5 3h10A1.5 1.5 0 0 1 19 4.5v13A1.5 1.5 0 0 1 17.5 19H7.5A2.5 2.5 0 0 0 5 21.5V5.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M7.5 6.5H17M7.5 9.5H17M7.5 12.5H14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <span class="text-sm text-slate-700">小红书 · Never_m</span>
+          <svg class="w-3.5 h-3.5 ml-auto text-slate-400 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
+        class="group flex items-center gap-2 px-4 py-2 rounded-xl border border-sky-200/80 bg-blue-50/90 hover:bg-sky-100 hover:border-sky-300 shadow-sm transition-all duration-300">
+       <svg class="w-4 h-4 text-white-500 group-hover:text-sky-500 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+         <path d="M7 3.75A1.75 1.75 0 0 1 8.75 2h5.69a1.75 1.75 0 0 1 1.24.51l2.81 2.81A1.75 1.75 0 0 1 19 6.56V20.25A1.75 1.75 0 0 1 17.25 22h-8.5A1.75 1.75 0 0 1 7 20.25V3.75Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+         <path d="M14 2.5V5a1 1 0 0 0 1 1h2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+         <path d="M9 12h6M9 15h6M9 18h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+       </svg>
+     
+       <span class="text-sm text-slate-700">Resume</span>
+     
+       <svg class="w-3.5 h-3.5 ml-auto text-slate-400 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+       </svg>
+     </a>
+            </div>
+
+            <div class="text-xs text-slate-500 space-y-1 border-t border-slate-200/60 pt-3">
+              <p><span class="text-slate-700">证书：</span>人力资源管理经济师 · 普通话二甲</p>
+              <p><span class="text-slate-700">语言：</span>英语（流利） · 雅思 6.5</p>
+            </div>
+
+            <p class="md:hidden text-xs text-slate-400">向下滑动浏览完整简历 ↓</p>
+          </div>
+        </aside>
+
+        <!-- ==================== RIGHT SCROLLABLE ==================== -->
+        <main class="md:py-16 space-y-16 pb-24 min-w-0">
+
+          <!-- EDUCATION -->
+          <section id="education" class="reveal">
+            <h2 class="font-display text-3xl sm:text-4xl font-semibold text-slate-900 mb-8 tracking-tight md:pl-4">
+              Education <span data-wobble class="ml-2 text-xl sm:text-2xl font-normal text-slate-400 float-title">学术坐标</span>
+            </h2>
+            <div class="space-y-6">
+              <article class="glass-card rounded-2xl border border-slate-200/80 bg-white/40 backdrop-blur-xl p-6 sm:p-7 shadow-lg shadow-slate-200/40">
+                <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                  <h3 class="font-display text-lg sm:text-xl font-semibold text-slate-900">香港城市大学</h3>
+                  <span class="text-xs text-slate-500 tabular-nums">2025.09 – 2026.06（预计）</span>
+                </div>
+                <p class="text-sm font-medium text-slate-700 mb-2">管理与创新硕士</p>
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-2 text-sm">
+                    <span class="font-bold text-slate-800 shrink-0">核心课程：</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700">人员数据分析</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700">组织管理</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700">商业伦理与企业社会责任</span>
+                  </div>
+              </article>
+              <article class="glass-card rounded-2xl border border-slate-200/80 bg-white/40 backdrop-blur-xl p-6 sm:p-7 shadow-lg shadow-slate-200/40">
+                <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                  <h3 class="font-display text-lg sm:text-xl font-semibold text-slate-900">成都理工大学</h3>
+                  <span class="text-xs text-slate-500 tabular-nums">2015.09 – 2019.07</span>
+                </div>
+                <p class="text-sm font-medium text-slate-700 mb-2">人力资源管理学士</p>
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-2 text-sm">
+                    <span class="font-bold text-slate-800 shrink-0">核心课程：</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700">企业人力资本投资（<span class="font-semibold text-slate-900">97</span> 分）</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700">绩效管理（<span class="font-semibold text-slate-900">95</span> 分）</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-slate-100/90 border border-slate-200/70 text-slate-700">招聘与配置（<span class="font-semibold text-slate-900">95</span> 分）</span>
+                  </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- CREATIVE LAB -->
+<section id="creative-lab" class="reveal">
+  <h2 class="font-display text-3xl sm:text-4xl font-semibold text-slate-900 mb-8 tracking-tight md:pl-4">
+    Creative Lab <span data-wobble class="ml-2 text-xl sm:text-2xl font-normal text-slate-400 float-title">灵感策展</span>
+  </h2>
+
+  <div class="space-y-6">
+    <article class="glass-card rounded-2xl border border-slate-200/80 bg-white/40 backdrop-blur-xl p-6 sm:p-8 shadow-lg shadow-slate-200/40">
+      <span class="text-xs font-medium uppercase tracking-widest text-rose-600">Content Lab · 小红书</span>
+      <h3 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 mt-2 mb-3">小红书内容创作与账号运营</h3>
+      <p class="text-slate-600 text-sm sm:text-base mb-6 leading-relaxed">
+        长期深耕小红书内容生态，自营 2 个不同垂直方向的视觉美学账号，熟悉平台推荐逻辑、内容生态与社区规则，具备从 0 到 1 账号搭建、内容策划、视觉创作、数据复盘、粉丝互动维护的全流程运营能力。
+      </p>
+
+      <!-- 上层：账号卡 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a
+        href="https://xhslink.com/m/7B9iwjIs1Mf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="js-xhs-account-card relative text-left rounded-2xl border border-slate-200/70 bg-cover bg-center p-5 sm:p-6 overflow-hidden shadow-lg shadow-slate-200/25 transition-all duration-300 hover:scale-[1.02] block"
+        data-account="dabai"
+        style="background-image: url('covers/folder/texture 01.png');"
+      >
+          <div class="absolute inset-0 bg-white/8"></div>
+          <div class="relative z-10">
+            <p class="text-xs font-semibold mb-1 text-black/80">账号 A · Red Note</p>
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <h3 class="font-display text-xl font-bold text-white">李大白大王</h3>
+                <p class="text-xs text-black/75 mt-1">色彩分级 / 手机调色</p>
+              </div>
+              <div class="text-right -mt-4">
+                <p class="text-[11px] uppercase tracking-widest text-white/65">Fans</p>
+                <p class="text-sm font-semibold text-black" data-count="3.6" data-suffix="万+"></p>
+                <p class="text-[11px] uppercase tracking-widest text-white/70">Likes & Saves</p>
+                <p class="text-sm font-semibold text-black" data-count="71.6" data-suffix="w"></p>
+              </div>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-black">
+              色彩分级垂直账号：手机调色、氛围感滤镜教程。
+            </p>
+          </div>
+        </a>
+
+        <a
+        href="https://xhslink.com/m/3FGIXdVPj1B"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="js-xhs-account-card relative text-left rounded-2xl border border-slate-200/70 bg-cover bg-center p-5 sm:p-6 overflow-hidden shadow-lg shadow-slate-200/25 transition-all duration-300 hover:scale-[1.02] block"
+        data-account="never"
+        style="background-image: url('covers/folder/texture 02.png');"
+      >
+          <div class="absolute inset-0 bg-black/5"></div>
+          <div class="relative z-10">
+            <p class="text-xs font-semibold mb-1 text-white/90">账号 B · Red Note</p>
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <h3 class="font-display text-xl font-bold text-black">Never_m</h3>
+                <p class="text-xs text-white/80 mt-1">拼贴美学 / 版式设计</p>
+              </div>
+              <div class="text-right -mt-4">
+                <p class="text-[11px] uppercase tracking-widest text-white/70">Fans</p>
+                <p class="text-sm font-semibold text-black" data-count="687" data-suffix=""></p>
+                <p class="text-[11px] uppercase tracking-widest text-white/70">Likes & Saves</p>
+                <p class="text-sm font-semibold text-black" data-count="1.6" data-suffix="w"></p>
+              </div>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-white/95">
+              拼贴美学 / 版式设计账号：聚焦图文排版、旅行手账设计。
+            </p>
+          </div>
+        </a>
+      </div>
+
+      <!-- 下层：3D 爆款展示区 -->
+      <div class="mt-4 rounded-2xl border border-slate-200/70 bg-white/20 backdrop-blur-xl p-2.5 sm:p-4 overflow-hidden">
+        <div class="flex items-center justify-between gap-3 mb-2">
+          <div>
+            <p class="text-xs font-medium uppercase tracking-widest text-slate-500">Top Posts</p>
+            <h4 id="xhs-active-title" class="font-display text-lg sm:text-xl font-semibold text-slate-900 mt-1">
+              李大白大王 · 爆款展示
+            </h4>
+          </div>
+        </div>
+
+        <div id="xhs-stack-stage" class="xhs-stack-stage relative h-[340px] sm:h-[380px] -mt-[60px]"></div>
+      </div>
+
+      <p class="text-sm text-slate-600 leading-relaxed mt-0">
+        从灵感到数据的「点击率」重构：滤镜矩阵 + 选题 SOP + 拆解平台算法“黑盒”
+      </p>
+    </article>
+
+    <!-- details -->
+    <div id="wx-video-section" class="mt-6 rounded-2xl border border-slate-200/80 bg-white/40 backdrop-blur-xl p-6 sm:p-8 shadow-lg shadow-slate-200/40">
+      <div class="space-y-5">
+        <div class="rounded-2xl border border-blue-200/60 bg-gradient-to-br from-blue-50 to-sky-50 p-5 sm:p-6 shadow-sm">
+          <p class="text-xs font-medium uppercase tracking-widest text-sky-600 mb-2">Video Lab · 微信视频号</p>
+          <h3 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 mb-3">微信视频号内容创作与账号运营</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            旅行 Vlog 账号：聚焦旅行游记与旅途感悟，输出高质量视频内容，强化美学统一性。
+          </p>
+    
+          <button
+            id="wx-video-trigger"
+            type="button"
+            class="mt-4 inline-flex items-center gap-2 text-sm text-sky-700 hover:text-blue-800 transition-colors"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h2M4 12h2m10-6h.01M6 6h.01M6 18h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            点击查看二维码扫码关注
+          </button>
+        </div>
+    
+        <!-- 视频展示区：直接显示在卡片下方 -->
+        <div id="wx-video-box" class="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm">
+          <div class="relative aspect-[4/3] sm:aspect-[21/9]">
+            <video
+            id="wx-video-player"
+            src="covers/videos/wx-preview.mp4"
+            controls
+            muted
+            loop
+            playsinline
+            preload="auto"
+            class="absolute inset-0 w-full h-full object-cover object-center scale-110"
+          ></video>
+    
+            <!-- 轻微遮罩，提升质感 -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+    <div id="never-detail" class="detail-panel hidden mt-6 rounded-2xl border border-violet-200/60 bg-white/70 backdrop-blur-xl p-6 sm:p-8 shadow-lg shadow-slate-200/40">
+      <p class="text-xs font-medium uppercase tracking-widest text-violet-600 mb-2">Case Deep Dive · Never_m</p>
+      <h3 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 mb-4">爆款深度拆解 · 拼贴美学 / 版式号</h3>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        这里放 Never_m 的详细说明。你可以继续写版式设计、拼贴方法论、视觉统一性等。
+      </p>
+    </div>
+
+    <div id="creative-detail" class="detail-panel hidden mt-6 rounded-2xl border border-slate-200/60 bg-white/70 backdrop-blur-xl p-6 sm:p-8 shadow-lg shadow-slate-200/40">
+      <p class="text-xs font-medium uppercase tracking-widest text-slate-500 mb-2">Creative Lab · Overview</p>
+      <h3 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 mb-4">小红书内容创作与账号运营</h3>
+      <p class="text-sm text-slate-600 leading-relaxed mt-4">
+        这里放总览说明，比如内容策略、AIGC 协同、视觉统一方法等。
+      </p>
+    </div>
+  </div>
+</section>
+
+          <!-- EXPERIENCE -->
+          <section id="experience" class="reveal">
+            <h2 class="font-display text-3xl sm:text-4xl font-semibold text-slate-900 mb-8 tracking-tight md:pl-4">
+              Work Experience <span data-wobble class="ml-2 text-xl sm:text-2xl font-normal text-slate-400 float-title">履历档案</span>
+            </h2>
+            <ol class="relative border-l border-slate-200 ml-3 space-y-10">
+
+              <li class="pl-8 relative">
+                <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-orange-500 ring-4 ring-orange-400/25"></span>
+                <div class="glass-card rounded-2xl border border-slate-200/80 bg-white/40 backdrop-blur-xl p-6 shadow-lg shadow-slate-200/40">
+                  <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+                    <h3 class="text-lg font-semibold text-slate-900">人力资源管理员</h3>
+                    <span class="text-xs text-slate-500 tabular-nums">2019.08 – 2025.04</span>
+                  </div>
+                  <p class="text-sm text-slate-500 mb-4">广州市自来水有限公司东区分公司</p>
+                  <ul class="text-sm text-slate-600 space-y-2">
+                    <li><span class="text-slate-800 font-medium">数字化转型：</span>牵头 <span class="text-slate-900 font-semibold">370+</span> 全员 HRIS 系统数字化升级与数据迁移，实现系统迭代优化与数据 100% 精准闭环。</li>
+                    <li><span class="text-slate-800 font-medium">流程优化：</span>推动考勤统计、绩效考核和薪酬结算 SOP 优化，精简冗余环节，减少 <span class="text-slate-900 font-semibold">20%</span> 人工重复操作。</li>
+                    <li><span class="text-slate-800 font-medium">跨部门协同：</span>推进对接各业务部门 HR 相关需求，协调解决协作卡点。</li>
+                    <li><span class="text-slate-800 font-medium">培训开发：</span>管理部门业务培训工作，结合岗位需求收集培训素材、设计方案并落地。</li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="pl-8 relative">
+                <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-indigo-500 ring-4 ring-indigo-400/25"></span>
+                <div class="glass-card rounded-2xl border border-slate-200/80 bg-white/40 backdrop-blur-xl p-6 shadow-lg shadow-slate-200/40">
+                  <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+                    <h3 class="text-lg font-semibold text-slate-900">HR Operation Intern</h3>
+                    <span class="text-xs text-slate-500 tabular-nums">2026.04 – 2026.05</span>
+                  </div>
+                  <p class="text-sm text-slate-500 mb-4">Doo Insurance Broker Limited (HK)</p>
+                  <ul class="text-sm text-slate-600 space-y-2">
+                    <li><span class="text-slate-800 font-medium">管理运营：</span>配合跨境员工基础运营与合规管理，负责信息录入、档案归档及跨境用工合规审核。</li>
+                    <li><span class="text-slate-800 font-medium">全周期服务：</span>承担跨境员工入职、信息变更、离职等全流程基础事务。</li>
+                  </ul>
+                </div>
+              </li>
+
+            </ol>
+          </section>
+
+          <!-- SKILLS -->
+          <section id="skills" class="reveal">
+            <h2 class="font-display text-3xl sm:text-4xl font-semibold text-slate-900 mb-8 tracking-tight md:pl-4">
+              AIGC &amp; Skills <span data-wobble class="ml-2 text-xl sm:text-2xl font-normal text-slate-400 float-title">生产力媒介</span>
+            </h2>
+            <div class="glass-card rounded-2xl border border-slate-200/80 bg-white/40 backdrop-blur-xl p-6 sm:p-8 shadow-lg shadow-slate-200/40 space-y-8">
+
+              <div>
+                <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-4">专业技能</h3>
+                <div id="skills-word-cloud" class="skills-word-cloud"></div>
+              </div>
+            </div>
+          </section>
+
+          
+          <!-- ABOUT（置底） -->
+          <section id="about" class="reveal">
+            <h2 class="font-display text-3xl sm:text-4xl font-semibold text-slate-900 mb-6 tracking-tight md:pl-4">
+              About Me <span data-wobble class="ml-2 text-xl sm:text-2xl font-normal text-slate-400 float-title">关于我</span>
+            </h2>
+            <div class="glass-card rounded-2xl border border-slate-200/80 bg-white/40 backdrop-blur-xl p-6 sm:p-8 shadow-lg shadow-slate-200/40 space-y-6 leading-relaxed">
+
+              <!-- 中文 -->
+              <div class="space-y-4 text-slate-600 text-base sm:text-sm">
+                <p>
+                  同时具备 <span class="text-slate-900 font-medium">HR 数据化运营</span>、
+                  <span class="text-slate-800 font-medium">B 端用户研究</span> 与
+                  <span class="text-slate-800 font-medium">小红书 C 端内容运营</span> 复合背景，叠加
+                  <span class="text-slate-800 font-medium">2 个小红书视觉美学垂直账号</span> 的
+                  <span class="text-slate-800 font-medium">0 到 1 独立全链路操盘经验</span>。擅长用户画像、需求洞察、数据复盘、流程标准化与内容策略搭建。懂
+                  <span class="text-slate-800 font-medium">小红书算法生态</span> +
+                  <span class="text-slate-800 font-medium">视觉审美</span> +
+                  <span class="text-slate-800 font-medium">AIGC 内容生产全链路</span>，适配 AI RPT 内容策略、爆款研究、内容标准化运营岗位。
+                </p>
+                <p>
+                  使用 <span class="text-amber-700 font-medium">Figma</span>、
+                  <span class="text-amber-700 font-medium">Gamma</span>、
+                  <span class="text-amber-700 font-medium">手机修图软件</span> 及各类主流
+                  <span class="text-amber-700 font-medium"> AIGC ChatGPT</span>、
+                  <span class="text-amber-700 font-medium"> Gemini</span>、
+                  <span class="text-amber-700 font-medium">Claude</span>、等工具为抓手，完成小红书爆款笔记结构化分析，垂直选题，封面模板批量设计、教程文案和字幕自动化生成、将单篇内容的制作周期缩短约 30%，支撑账号稳定更新与粉丝增长。
+                </p>
+                <p>
+                  目前仍在持续探索 <span class="text-blue-500 font-medium">AI 与内容创作</span>的结合边界，
+                3天自学 <span class="text-blue-500 font-medium">Vibe Coding</span>，借助 
+                <span class="text-blue-500 font-medium">Cursor</span> 等工具搭建个人网站，以解决实际问题为导向，持续不断优化用户交互体验。
+              </div>
+
+            </div>
+          </section>
+          <!-- INTERACTIVE QUIZ -->
+<section id="interactive-quiz" class="reveal">
+  <div class="glass-card rounded-2xl border border-slate-200/80 bg-white/40 backdrop-blur-xl p-6 sm:p-8 shadow-lg shadow-slate-200/40 max-w-5xl mx-auto text-center">
+    
+    <!-- 欢迎页 -->
+    <div id="quiz-welcome" class="space-y-5">
+      <p class="text-xs font-medium uppercase tracking-widest text-slate-400">Interactive Quiz</p>
+      <h2 class="font-display text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight">
+        测测你对本站和主理人的了解程度
+      </h2>
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        刚才逛主页时有没有“开小差” 👀
+      </p>
+      <button
+        id="quiz-start-btn"
+        type="button"
+        class="mt-2 inline-flex items-center justify-center px-5 py-3 rounded-xl border border-slate-200 bg-white/80 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all"
+      >
+        开始测试
+      </button>
+    </div>
+
+    <!-- 题目区 -->
+    <div id="quiz-questions" class="hidden space-y-6 text-left">
+      <!-- 进度 -->
+      <div class="flex items-center justify-between text-xs text-slate-500">
+        <span id="quiz-step-label">题目 1 / 3</span>
+        <span id="quiz-score-label">当前得分：0</span>
+      </div>
+
+      <!-- 题目 1 -->
+      <div id="quiz-q1" class="space-y-4">
+        <h3 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 text-center">
+          以下哪个小红书账号的粉丝量更多？
+        </h3>
+        <div class="space-y-3">
+          <button type="button" class="quiz-option w-full text-left px-5 py-3.5 rounded-xl border border-slate-200 bg-white/80 text-sm text-slate-700 transition-all hover:border-rose-500 hover:bg-rose-50/20" data-q="1" data-score="1">
+            A. 李大白大王
+          </button>
+          <button type="button" class="quiz-option w-full text-left px-5 py-3.5 rounded-xl border border-slate-200 bg-white/80 text-sm text-slate-700 transition-all hover:border-rose-500 hover:bg-rose-50/20" data-q="1" data-score="0">
+            B. Never_m
+          </button>
+        </div>
+      </div>
+
+      <!-- 题目 2 -->
+      <div id="quiz-q2" class="hidden space-y-4">
+        <h3 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 text-center">
+          重点抽查：你刚才是否已经扫码查看了我的微信视频号？
+        </h3>
+        <div class="space-y-3">
+          <button type="button" class="quiz-option w-full text-left px-5 py-3.5 rounded-xl border border-slate-200 bg-white/80 text-sm text-slate-700 transition-all hover:border-emerald-500 hover:bg-emerald-50/20" data-q="2" data-score="1" data-veto="false">
+            A. 是的，已经扫码关注/看过了！
+          </button>
+          <button type="button" class="quiz-option w-full text-left px-5 py-3.5 rounded-xl border border-slate-200 bg-white/80 text-sm text-slate-700 transition-all hover:border-emerald-500 hover:bg-emerald-50/20" data-q="2" data-score="0" data-veto="true">
+            B. 还没有耶...（待会儿一定看）
+          </button>
+        </div>
+      </div>
+
+      <!-- 题目 3 -->
+      <div id="quiz-q3" class="hidden space-y-4">
+        <h3 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 text-center">
+          我的个人网站标志（Logo）名称究竟是什么？
+        </h3>
+        <div class="space-y-3">
+          <button type="button" class="quiz-option w-full text-left px-5 py-3.5 rounded-xl border border-slate-200 bg-white/80 text-sm text-slate-700 transition-all hover:border-orange-500 hover:bg-orange-50/20" data-q="3" data-score="0">
+            A. icyleei
+          </button>
+          <button type="button" class="quiz-option w-full text-left px-5 py-3.5 rounded-xl border border-slate-200 bg-white/80 text-sm text-slate-700 transition-all hover:border-orange-500 hover:bg-orange-50/20" data-q="3" data-score="0">
+            B. iicyleei
+          </button>
+          <button type="button" class="quiz-option w-full text-left px-5 py-3.5 rounded-xl border border-slate-200 bg-white/80 text-sm text-slate-700 transition-all hover:border-orange-500 hover:bg-orange-50/20" data-q="3" data-score="1">
+            C. iiicyleei
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 结果页 -->
+    <div id="quiz-result" class="hidden space-y-5">
+      <p class="text-xs font-medium uppercase tracking-widest text-slate-400">Result</p>
+      <h2 id="quiz-result-title" class="font-display text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight"></h2>
+      <div id="quiz-result-desc" class="text-sm sm:text-base text-slate-600 leading-relaxed text-left sm:text-center"></div>
+
+      <div class="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+        <button
+          id="quiz-retry-btn"
+          type="button"
+          class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-slate-200 bg-white/80 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all"
+        >
+          重新回答
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+          <footer class="reveal pt-8 border-t border-slate-200/60 text-center text-xs text-slate-400">
+            <p>© 2026 iiicyleei · Crafted with intention</p>
+          </footer>
+
+        </main>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 微信视频号二维码弹层 -->
+  <div id="wx-qr-modal" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm"
+       onclick="closeWxQrModal()" role="dialog" aria-modal="true" aria-labelledby="wx-qr-title">
+    <div class="qr-panel relative bg-white rounded-2xl border border-slate-200/80 shadow-2xl max-w-sm w-full p-6 sm:p-8 text-center"
+         onclick="event.stopPropagation()">
+      <button type="button" onclick="closeWxQrModal()"
+              class="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-700 transition-colors"
+              aria-label="关闭">✕</button>
+      <p id="wx-qr-title" class="font-display text-xl font-semibold text-slate-900">李大白白白</p>
+      <p class="text-sm text-slate-500 mt-1">微信视频号 · 旅行 Vlog</p>
+      <img
+        src="wechat-channels-lidabaibai.png"
+        alt="李大白白白 微信视频号二维码"
+        class="w-52 h-52 sm:w-56 sm:h-56 mx-auto mt-5 rounded-xl border border-slate-100 object-contain bg-white"
+      />
+      <p class="text-sm text-slate-600 mt-5 leading-relaxed">
+        打开微信 → 扫一扫 → 识别二维码<br />即可进入视频号主页
+      </p>
+      <p class="text-xs text-slate-400 mt-2">视频号 ID：sphB2MPGivqB08I</p>
+      <div class="w-full max-w-md rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-lg">
+      </div>
+    </div>
+  </div>
+  <script>
+    let quizCurrentScore = 0;
+    let quizQ2Veto = false;
+  
+    function initTypewriter() {
+      const el = document.getElementById('typewriter-name');
+      if (!el) return;
+  
+      const fullName = 'iiicyleei';
+      let index = 0;
+  
+      function type() {
+        if (index < fullName.length) {
+          el.textContent = fullName.substring(0, index + 1);
+          index++;
+          setTimeout(type, 95);
+        } else {
+          el.classList.add('done');
+        }
+      }
+  
+      setTimeout(type, 400);
+    }
+  
+    function initReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+  
+      reveals.forEach((el) => observer.observe(el));
+    }
+  
+    function initMagneticBlobs() {
+      const blobs = [
+        document.getElementById('blob-1'),
+        document.getElementById('blob-2'),
+        document.getElementById('blob-3'),
+        document.getElementById('blob-4'),
+      ];
+  
+      const factors = [28, 22, 32, 18];
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+  
+      function onMove(clientX, clientY) {
+        const nx = (clientX / window.innerWidth - 0.5) * 2;
+        const ny = (clientY / window.innerHeight - 0.5) * 2;
+        targetX = nx;
+        targetY = ny;
+      }
+  
+      window.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY), { passive: true });
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches[0]) onMove(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+  
+      function tick() {
+        currentX += (targetX - currentX) * 0.045;
+        currentY += (targetY - currentY) * 0.045;
+  
+        blobs.forEach((blob, i) => {
+          if (!blob) return;
+          const f = factors[i];
+          blob.style.translate = `${currentX * f}px ${currentY * f}px`;
+        });
+  
+        requestAnimationFrame(tick);
+      }
+  
+      tick();
+    }
+  
+    function initCountUp() {
+  const DURATION = 2500; // 总时长 ms，改这里调快慢
+
+  function easeOutExpo(t) {
+    // 缓动函数：前段快，接近终点时明显放缓
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  function animateCount(el) {
+    // 如果上一次动画还在跑，先取消
+    if (el._rafId) {
+      cancelAnimationFrame(el._rafId);
+      el._rafId = null;
+    }
+
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    // 判断是否是整数（687），还是小数（3.6 / 1.6 / 71.6）
+    const isInt = Number.isInteger(target);
+    const startTime = performance.now();
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / DURATION, 1);
+      const eased = easeOutExpo(progress);
+      const current = target * eased;
+
+      el.textContent = (isInt
+        ? Math.floor(current)
+        : current.toFixed(1)
+      ) + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        // 确保最终显示精确值
+        el.textContent = (isInt ? target : target.toFixed(1)) + suffix;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  // 用 IntersectionObserver 监听账号卡片，进入视口时触发
+  const cards = document.querySelectorAll('.js-xhs-account-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      // 找到这张卡片里所有带 data-count 的元素
+      entry.target.querySelectorAll('[data-count]').forEach(el => {
+        animateCount(el);
+      });
+    });
+  }, { threshold: 0.4 }); // 0.4 = 卡片露出 40% 时触发，可调小到 0.2 让它更早触发
+
+  cards.forEach(card => observer.observe(card));
+}
+
+    function openWxQrModal() {
+      const modal = document.getElementById('wx-qr-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+  
+    function closeWxQrModal() {
+      const modal = document.getElementById('wx-qr-modal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+  
+    function initPostCarousels() {
+      const SPEED = 1.15;
+      const EDGE = 0.28;
+  
+      document.querySelectorAll('[data-carousel-zone]').forEach((zone) => {
+        const track = zone.querySelector('[data-carousel-track]');
+        if (!track) return;
+  
+        let direction = 0;
+  
+        const tick = () => {
+          if (direction !== 0) track.scrollLeft += direction * SPEED;
+          requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+  
+        zone.addEventListener('mousemove', (e) => {
+          const rect = zone.getBoundingClientRect();
+          const ratio = (e.clientX - rect.left) / rect.width;
+  
+          if (ratio < EDGE) {
+            direction = -1;
+            zone.classList.add('is-scroll-left');
+            zone.classList.remove('is-scroll-right');
+          } else if (ratio > 1 - EDGE) {
+            direction = 1;
+            zone.classList.add('is-scroll-right');
+            zone.classList.remove('is-scroll-left');
+          } else {
+            direction = 0;
+            zone.classList.remove('is-scroll-left', 'is-scroll-right');
+          }
+        });
+  
+        zone.addEventListener('mouseleave', () => {
+          direction = 0;
+          zone.classList.remove('is-scroll-left', 'is-scroll-right');
+        });
+      });
+    }
+  
+    /* =========================
+       XHS Data
+       ========================= */
+    const xhsAccounts = [
+      {
+        id: 'dabai',
+        nickname: '李大白大王',
+        handle: '账号 A · Red Note',
+        avatar: 'covers/folder/texture 01.png',
+        location: '色彩分级 / 手机调色',
+        fans: '3.6 万+',
+        intro: '色彩分级垂直账号：手机调色、氛围感滤镜教程。',
+        posts: [
+          {
+            title: '𝗚𝗿3 | 在印尼感受理光的蓝与绿🦎🌍',
+            views: '42821',
+            likes: '2953',
+            collects: '870',
+            cover: 'covers/dabai/01.jpg',
+            href: 'http://xhslink.com/o/62RqT3aXUD4',
+          },
+          {
+            title: '京都无尽夏🍃｜人生就该如此浪费时间',
+            views: '18902',
+            likes: '678',
+            collects: '216',
+            cover: 'covers/dabai/02.jpg',
+            href: 'http://xhslink.com/o/6P5EBD5zM4Z',
+          },
+          {
+            title: '醒图调色合集❸🥥 8款高级质感滤镜',
+            views: '295588',
+            likes: '3.8w',
+            collects: '3.4w',
+            cover: 'covers/dabai/03.jpg',
+            href: 'http://xhslink.com/o/2Kfqfde3OKI',
+          },
+          {
+            title: '调色合集✨8款必备神仙万能滤镜🤍',
+            views: '449974',
+            likes: '4.8w',
+            collects: '4.3w',
+            cover: 'covers/dabai/04.jpg',
+            href: 'http://xhslink.com/o/162bNMAFfND',
+          },
+          {
+            title: 'Lonely secret·⏳寂静氛围情绪质感调色',
+            views: '45866',
+            likes: '5298',
+            collects: '2407',
+            cover: 'covers/dabai/05.jpg',
+            href: 'http://xhslink.com/o/9FitoEEsrBP',
+          },
+        ],
+      },
+      {
+        id: 'never',
+        nickname: 'Never_m',
+        handle: '账号 B · Red Note',
+        avatar: 'covers/folder/texture 02.png',
+        location: '拼贴美学 / 版式设计',
+        fans: '687',
+        intro: '拼贴美学 / 版式设计账号：聚焦图文排版、旅行手账设计。',
+        posts: [
+          {
+            title: '我们总是迷恋短暂的相逢🦎🌍',
+            views: '21896',
+            likes: '2246',
+            collects: '822',
+            cover: 'covers/never/01.jpg',
+            href: 'http://xhslink.com/o/3PR6SeaOtJy',
+          },
+          {
+            title: '说不出旅行的意义 🦔⋆⁺₊⋆𖠚ᐝ',
+            views: '4787',
+            likes: '609',
+            collects: '243',
+            cover: 'covers/never/02.jpg',
+            href: 'http://xhslink.com/o/3kyoFwBiO3R',
+          },
+          {
+            title: '我们被「毁灭」吸引 🌋',
+            views: '9860',
+            likes: '1392',
+            collects: '428',
+            cover: 'covers/never/03.jpg',
+            href: 'http://xhslink.com/o/4jzMiWQkuhH',
+          },
+          {
+            title: '胶片随拍|October Vibe.*',
+            views: '1460',
+            likes: '212',
+            collects: '10',
+            cover: 'covers/never/04.jpg',
+            href: 'http://xhslink.com/o/1xSCEu8tSYm',
+          },
+          {
+            title: '四月物语🌿🤍|数码VS胶片',
+            views: '34410',
+            likes: '784',
+            collects: '587',
+            cover: 'covers/never/05.jpg',
+            href: 'http://xhslink.com/o/7hsON430arX',
+          },
+        ],
+      },
+    ];
+  
+    function showDetail(accountId) {
+      const dabai = document.getElementById('dabai-detail');
+      const never = document.getElementById('never-detail');
+      const creative = document.getElementById('creative-detail');
+  
+      if (!dabai || !never || !creative) return;
+  
+      dabai.classList.remove('is-active');
+      never.classList.remove('is-active');
+      creative.classList.remove('is-active');
+  
+      if (accountId === 'dabai') {
+        dabai.classList.add('is-active');
+      } else if (accountId === 'never') {
+        never.classList.add('is-active');
+      } else {
+        creative.classList.add('is-active');
+      }
+    }
+  
+    function renderXhsStack(accountId) {
+      const stage = document.getElementById('xhs-stack-stage');
+      const title = document.getElementById('xhs-active-title');
+      const account = xhsAccounts.find((item) => item.id === accountId) || xhsAccounts[0];
+      if (!stage || !title) return;
+  
+      title.textContent = `${account.nickname} · 作品展示`;
+  
+      stage.innerHTML = `
+        <div class="xhs-row-stack w-full h-full relative">
+          ${account.posts.map((post, index) => {
+            const total = account.posts.length;
+            const depth = total - index;
+            const x = index * 100;
+            const z = index * -18;
+            const y = index % 2 === 0 ? 0 : 6;
+            const rotate = index === 0 ? -2 : index === 4 ? 2 : 0;
+  
+            return `
+              <a
+                href="${post.href}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="xhs-row-card group cursor-butterfly cursor-butterfly-pressable"
+                data-index="${index}"
+                style="
+                  z-index: ${depth};
+                  transform:
+                    translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${z}px)
+                    rotate(${rotate}deg)
+                    scale(1);
+                "
+              >
+                <div class="xhs-row-media">
+                  <img class="cover" src="${post.cover}" alt="${account.nickname} ${post.title}" loading="lazy" />
+                  <div class="view-pill px-4 py-2 rounded-full bg-white/75 text-slate-900 text-sm font-semibold shadow-lg backdrop-blur-xl border border-white/60">
+                    View Note
+                  </div>
+                </div>
+  
+                <div class="xhs-row-meta">
+                  <p class="font-display text-sm font-semibold text-slate-900">${post.title}</p>
+  
+                  <div class="xhs-metrics">
+                    <div class="metric-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M1.5 12s3.8-6.5 10.5-6.5S22.5 12 22.5 12 18.7 18.5 12 18.5 1.5 12 1.5 12Z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/>
+                      </svg>
+                      <span>${post.views}</span>
+                    </div>
+  
+                    <div class="metric-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-4.4-7-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7 3.5C19 16.6 12 21 12 21Z"/>
+                      </svg>
+                      <span>${post.likes}</span>
+                    </div>
+  
+                    <div class="metric-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 4.5h10.5A1.75 1.75 0 0 1 19 6.25v13.2a.55.55 0 0 1-.85.46L12 16.1l-6.15 3.81a.55.55 0 0 1-.85-.46V6.25A1.75 1.75 0 0 1 6.75 4.5Z"/>
+                      </svg>
+                      <span>${post.collects}</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            `;
+          }).join('')}
+        </div>
+      `;
+  
+      const cards = Array.from(stage.querySelectorAll('.xhs-row-card'));
+  
+      const setLayout = (activeIndex = 0) => {
+        cards.forEach((card, index) => {
+          const baseX = index * 100;
+          const baseZ = index * -18;
+          const baseY = index % 2 === 0 ? 0 : 6;
+          const isActive = index === activeIndex;
+  
+          const activeTransform = `
+            translate3d(calc(-50% + ${baseX}px), calc(-50% + ${baseY}px), 60px)
+            rotate(0deg)
+            scale(1.05)
+          `;
+  
+          const avoidShift = activeIndex !== -1
+            ? (index < activeIndex ? -10 : index > activeIndex ? 10 : 0)
+            : 0;
+  
+          if (isActive) {
+            card.style.zIndex = '999';
+            card.style.transform = activeTransform;
+            card.style.opacity = '1';
+          } else {
+            card.style.zIndex = String(cards.length - index);
+            card.style.transform = `
+              translate3d(calc(-50% + ${baseX + avoidShift}px), calc(-50% + ${baseY}px), ${baseZ}px)
+              rotate(${index === 0 ? -2 : index === 4 ? 2 : 0}deg)
+              scale(1)
+            `;
+            card.style.opacity = '0.96';
+          }
+        });
+      };
+  
+      setLayout(0);
+  
+      cards.forEach((card, index) => {
+        card.addEventListener('pointerenter', () => setLayout(index));
+        card.addEventListener('pointerleave', () => setLayout(0));
+      });
+    }
+  
+    function bindXhsAccountCards() {
+      const cards = document.querySelectorAll('.js-xhs-account-card');
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+  
+      cards.forEach((card) => {
+        const accountId = card.dataset.account;
+  
+        if (isMobile) {
+          card.addEventListener('click', () => {
+            renderXhsStack(accountId);
+            showDetail(accountId);
+          });
+        } else {
+          card.addEventListener('mouseenter', () => {
+            renderXhsStack(accountId);
+            showDetail(accountId);
+          });
+        }
+      });
+    }
+  
+    function showQuizResult(score, vetoTriggered) {
+      const welcome = document.getElementById('quiz-welcome');
+      const questions = document.getElementById('quiz-questions');
+      const result = document.getElementById('quiz-result');
+      const resultTitle = document.getElementById('quiz-result-title');
+      const resultDesc = document.getElementById('quiz-result-desc');
+  
+      if (!welcome || !questions || !result || !resultTitle || !resultDesc) return;
+  
+      welcome.classList.add('hidden');
+      questions.classList.add('hidden');
+      result.classList.remove('hidden');
+  
+      if (vetoTriggered) {
+        resultTitle.textContent = '最终得分：0 分 💔';
+        resultDesc.innerHTML = `
+          <strong>你怎么忍心！</strong> 竟然悄悄跳过了我的微信视频号 Vlog ��。主理人受到了 100 点暴击，并对你发送了一个委屈的眼神。快点击下方的「重新回答」去上面给视频号扫个码，挽回一下我们的默契值吧！
+        `;
+        return;
+      }
+  
+      if (score === 3) {
+        resultTitle.textContent = '最终得分：3 分 ⭐⭐⭐';
+        resultDesc.innerHTML = `
+          满分通关！看来你不仅认真阅读了我的每一项经历，连小红书粉丝数据和网站顶部的 <strong>iiicyleei</strong> 艺术字都观察得细致入微。像你这样兼具严谨洞察力与数字美学sense的伯乐，真是不多见了，期待收到你的邮件！
+        `;
+        return;
+      }
+  
+      if (score >= 1 && score <= 2) {
+        resultTitle.textContent = `最终得分：${score} 分 ⚖️`;
+        resultDesc.innerHTML = `
+          非常不错的成绩！虽然在小红书数据或者我的名字拼写上不小心手滑了一下，但看在你认真扫码关注了微信视频号的份上，默契考核判定通过！欢迎随时点击下方按钮和我建联，聊聊你的想法。
+        `;
+        return;
+      }
+  
+      resultTitle.textContent = '最终得分：0 分 ��';
+      resultDesc.innerHTML = `
+        悄悄告诉你，虽然你支持了我的视频号，但是另外两道细节题全都完美避开了正确答案哦！不过没关系，这说明本站还有更多宝藏值得你细细探索。随时可以点击「重新回答」再次发起挑战！
+      `;
+    }
+  
+    function initInteractiveQuiz() {
+      const welcome = document.getElementById('quiz-welcome');
+      const questions = document.getElementById('quiz-questions');
+      const result = document.getElementById('quiz-result');
+  
+      const startBtn = document.getElementById('quiz-start-btn');
+      const retryBtn = document.getElementById('quiz-retry-btn');
+  
+      const stepLabel = document.getElementById('quiz-step-label');
+      const scoreLabel = document.getElementById('quiz-score-label');
+  
+      const q1 = document.getElementById('quiz-q1');
+      const q2 = document.getElementById('quiz-q2');
+      const q3 = document.getElementById('quiz-q3');
+  
+      if (!welcome || !questions || !result || !startBtn || !retryBtn || !q1 || !q2 || !q3) return;
+  
+      function updateScoreUI(score) {
+        if (scoreLabel) scoreLabel.textContent = `当前得分：${score}`;
+      }
+  
+      function updateStepUI(step) {
+        if (stepLabel) stepLabel.textContent = `题目 ${step} / 3`;
+      }
+  
+      function clearSelectedOptions() {
+        document.querySelectorAll('.quiz-option').forEach((btn) => {
+          btn.classList.remove('ring-2', 'ring-slate-400');
+        });
+      }
+  
+      function resetQuiz() {
+        quizCurrentScore = 0;
+        quizQ2Veto = false;
+  
+        welcome.classList.remove('hidden');
+        questions.classList.add('hidden');
+        result.classList.add('hidden');
+  
+        q1.classList.remove('hidden');
+        q2.classList.add('hidden');
+        q3.classList.add('hidden');
+  
+        updateScoreUI(0);
+        updateStepUI(1);
+        clearSelectedOptions();
+      }
+  
+      function lockSelectedState(button) {
+        const parent = button.parentElement;
+        if (!parent) return;
+        parent.querySelectorAll('button').forEach((b) => {
+          b.classList.remove('ring-2', 'ring-slate-400');
+        });
+        button.classList.add('ring-2', 'ring-slate-400');
+      }
+  
+      startBtn.addEventListener('click', () => {
+        welcome.classList.add('hidden');
+        questions.classList.remove('hidden');
+        result.classList.add('hidden');
+  
+        q1.classList.remove('hidden');
+        q2.classList.add('hidden');
+        q3.classList.add('hidden');
+  
+        quizCurrentScore = 0;
+        quizQ2Veto = false;
+  
+        updateScoreUI(0);
+        updateStepUI(1);
+        clearSelectedOptions();
+      });
+  
+      document.querySelectorAll('.quiz-option').forEach((button) => {
+        button.addEventListener('click', () => {
+          const q = button.dataset.q;
+          const score = Number(button.dataset.score || 0);
+          const veto = button.dataset.veto === 'true';
+  
+          lockSelectedState(button);
+  
+          if (q === '1') {
+            quizCurrentScore += score;
+            updateScoreUI(quizCurrentScore);
+            q1.classList.add('hidden');
+            q2.classList.remove('hidden');
+            updateStepUI(2);
+            return;
+          }
+  
+          if (q === '2') {
+            if (veto) {
+              quizQ2Veto = true;
+            } else {
+              quizCurrentScore += score;
+            }
+            updateScoreUI(quizCurrentScore);
+            q2.classList.add('hidden');
+            q3.classList.remove('hidden');
+            updateStepUI(3);
+            return;
+          }
+  
+          if (q === '3') {
+            quizCurrentScore += score;
+            updateScoreUI(quizCurrentScore);
+            showQuizResult(quizCurrentScore, quizQ2Veto);
+          }
+        });
+      });
+  
+      retryBtn.addEventListener('click', resetQuiz);
+  
+      resetQuiz();
+    }
+  
+    function initSkillsWordCloud() {
+  const host = document.getElementById('skills-word-cloud');
+  if (!host) return;
+
+  const words = [
+    { text: 'Excel数据分析',        color: 'slate' },
+    { text: 'SPSS统计分析',           color: 'slate' },
+    { text: '手机修图',               color: 'violet' },
+    { text: '视频剪辑',               color: 'violet' },
+    { text: 'Figma',                  color: 'violet' },
+    { text: '内容创作',               color: 'sky' },
+    { text: 'SOP搭建',                color: 'sky' },
+    { text: '用户洞察',               color: 'sky' },
+    { text: 'Gemini',                 color: 'amber' },
+    { text: 'Cursor',                 color: 'amber' },
+    { text: 'Claude',                 color: 'amber' },
+    { text: 'ChatGPT',                color: 'amber' },
+    { text: 'AIGC',                   color: 'amber' },
+    { text: 'HR营运',                 color: 'slate' },
+    { text: '视觉审美',               color: 'violet' },
+  ];
+
+  const colorMap = {
+    slate:  { bg: 'rgba(248,250,252,0.92)',  border: 'rgba(148,163,184,0.35)', text: '#475569' },
+    violet: { bg: 'rgba(245,243,255,0.92)',  border: 'rgba(167,139,250,0.40)', text: '#6d28d9' },
+    sky:    { bg: 'rgba(240,249,255,0.92)',  border: 'rgba(125,211,252,0.40)', text: '#0369a1' },
+    amber:  { bg: 'rgba(255,251,235,0.92)',  border: 'rgba(252,211,77,0.45)',  text: '#92400e' },
+  };
+
+  // ── 布局参数 ──────────────────────────────────────
+  const COLS = 5;          // 每行几列
+  const ROW_H = 50;        // 每行高度 px
+  const COL_W = 20;        // 列宽基准（百分比，共 5 列 = 100%）
+  const V_PAD = 10;        // 每个泡泡上下内边距
+  const H_PAD = 20;        // 每个泡泡左右内边距
+  // ─────────────────────────────────────────────────
+
+  const ROWS = Math.ceil(words.length / COLS);
+  host.style.minHeight = `${ROWS * ROW_H + 16}px`;
+
+  // 把词语随机打乱，让每次刷新布局不同
+  const shuffled = [...words].sort(() => Math.random() - 0.5);
+
+  host.innerHTML = '';
+
+  shuffled.forEach((word, i) => {
+    const col = i % COLS;
+    const row = Math.floor(i / COLS);
+    const c = colorMap[word.color] || colorMap.slate;
+
+    const el = document.createElement('span');
+    el.className = 'skill-cloud-item';
+    el.textContent = word.text;
+
+    // 颜色覆盖
+    el.style.background  = c.bg;
+    el.style.borderColor = c.border;
+    el.style.color       = c.text;
+
+    // 位置：把容器宽度分成 COLS 份，每个词居中在自己的格子里
+    // 用 left/top + transform 实现居中对齐
+    const colPct = col * (100 / COLS) + (100 / COLS) / 2;  // 格子中心 %
+    const topPx  = row * ROW_H + ROW_H / 2;                // 行中心 px
+
+    el.style.position  = 'absolute';
+    el.style.left      = `${colPct}%`;
+    el.style.top       = `${topPx}px`;
+    el.style.transform = 'translate(-50%, -50%)';   // 以自身中心对齐到格子中心
+    el.style.padding   = `${V_PAD}px ${H_PAD}px`;
+    el.style.whiteSpace = 'nowrap';
+    el.style.cursor    = 'default';
+
+    host.appendChild(el);
+  });
+}
+
+function initSectionHover() {
+  // 选中所有需要晃动的模块卡片
+  const targets = document.querySelectorAll(
+  '.glass-card, .js-xhs-account-card, #wx-video-section > div, #never-detail, #creative-detail, aside .space-y-6'
+  );
+
+  targets.forEach(el => {
+    let leaveTimer = null;
+
+    el.addEventListener('mouseenter', () => {
+      // 清除之前的定时器
+      if (leaveTimer) clearTimeout(leaveTimer);
+
+      // 重新触发动画：先移除再加回来
+      el.classList.remove('section-hovering');
+      void el.offsetWidth; // 强制浏览器重绘，让动画能重新触发
+      el.classList.add('section-hovering');
+    });
+
+    el.addEventListener('mouseleave', () => {
+      // 离开后延迟移除 class，让动画自然播完
+      leaveTimer = setTimeout(() => {
+        el.classList.remove('section-hovering');
+      }, 2400); // 和动画时长一致
+    });
+  });
+}
+    function initWxVideoSection() {
+      const section = document.getElementById('wx-video-section');
+      const video = document.getElementById('wx-video-player');
+      const trigger = document.getElementById('wx-video-trigger');
+      const modal = document.getElementById('wx-qr-modal');
+      const closeBtn = document.getElementById('wx-qr-close');
+  
+      if (!section || !video || !trigger || !modal) return;
+  
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      }, { threshold: 0.35 });
+  
+      io.observe(section);
+  
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        openWxQrModal();
+      });
+  
+      const videoBox = document.getElementById('wx-video-box');
+      if (videoBox) {
+        videoBox.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+      }
+  
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeWxQrModal);
+      }
+  
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeWxQrModal();
+      });
+  
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeWxQrModal();
+      });
+    }
+  
+    function initWobbleTitles() {
+      const targets = document.querySelectorAll('[data-wobble]');
+  
+      targets.forEach((el) => {
+        const originalText = el.textContent;
+        el.innerHTML = '';
+  
+        [...originalText].forEach((char) => {
+          const span = document.createElement('span');
+          span.className = 'wobble-char';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          el.appendChild(span);
+        });
+  
+        let leaveTimer = null;
+  
+        el.addEventListener('mouseenter', () => {
+          if (leaveTimer) {
+            clearTimeout(leaveTimer);
+            leaveTimer = null;
+          }
+  
+          const chars = el.querySelectorAll('.wobble-char');
+          chars.forEach((charEl) => {
+            charEl.classList.add('is-wobbling');
+            const x = (Math.random() - 0.5) * 4;
+            const y = (Math.random() - 0.5) * 4;
+            const r = (Math.random() - 0.5) * 8;
+            charEl.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${r}deg)`;
+          });
+        });
+  
+        el.addEventListener('mouseleave', () => {
+          leaveTimer = setTimeout(() => {
+            const chars = el.querySelectorAll('.wobble-char');
+            chars.forEach((charEl) => {
+              charEl.classList.remove('is-wobbling');
+              charEl.style.transform = 'translate3d(0, 0, 0) rotate(0deg)';
+            });
+          }, 500);
+        });
+      });
+    }
+  
+    function initCelebrateParticles() {
+  const target = document.querySelector('[data-celebrate]');
+  const layer = document.getElementById('celebrate-particles');
+
+  if (!target || !layer) return;
+
+  const colors = ['#E16B93', '#E0A43B', '#78BFA8', '#6FA8DC', '#A58AF0', '#E3B93A'];
+
+  function spawnParticles(x, y) {
+    const count = 18;
+
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement('span');
+      particle.className = 'celebrate-particle';
+
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 50 + Math.random() * 120;
+      const size = 4 + Math.random() * 5;
+
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance;
+
+      particle.style.left = `${x}px`;
+      particle.style.top = `${y}px`;
+      particle.style.background = color;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.boxShadow = `0 0 12px ${color}66`;
+
+      layer.appendChild(particle);
+
+      particle.animate([
+        {
+          transform: `translate(-50%, -50%) scale(0.3)`,
+          opacity: 0,
+        },
+        {
+          transform: `translate(calc(-50% + ${dx * 0.35}px), calc(-50% + ${dy * 0.35}px)) scale(1)`,
+          opacity: 1,
+          offset: 0.25,
+        },
+        {
+          transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.2)`,
+          opacity: 0,
+        },
+      ], {
+        duration: 1500 + Math.random() * 500,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        fill: 'forwards',
+      });
+
+      setTimeout(() => particle.remove(), 2200);
+    }
+  }
+
+  let intervalId = null;
+
+  function startBurst() {
+    if (intervalId) return;
+
+    const rect = target.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    spawnParticles(x, y);
+    intervalId = setInterval(() => {
+      spawnParticles(x, y);
+    }, 650);
+  }
+
+  function stopBurst() {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  }
+
+  target.addEventListener('mouseenter', startBurst);
+  target.addEventListener('mouseleave', stopBurst);
+}
+
+    function initCustomCursor() {
+      const cursor = document.getElementById('custom-cursor');
+      if (!cursor) return;
+  
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let currentX = mouseX;
+      let currentY = mouseY;
+  
+      const hoverSelectors = [
+        'a',
+        'button',
+        '[role="button"]',
+        'input',
+        'textarea',
+        'select',
+        '.skill-tag',
+        '.glass-card',
+        '.js-xhs-account-card',
+        '.quiz-option',
+        '#wx-video-trigger',
+        '#wx-video-box',
+        '#quiz-start-btn',
+        '#quiz-retry-btn'
+      ];
+  
+      function isHoverTarget(target) {
+        return hoverSelectors.some((selector) => target.closest(selector));
+      }
+  
+      function tick() {
+        currentX += (mouseX - currentX) * 0.70;
+        currentY += (mouseY - currentY) * 0.70;
+  
+        requestAnimationFrame(tick);
+      }
+  
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      }, { passive: true });
+  
+      document.addEventListener('mouseover', (e) => {
+        if (isHoverTarget(e.target)) {
+          cursor.classList.add('is-hovered');
+        }
+      });
+  
+      document.addEventListener('mouseout', (e) => {
+        if (isHoverTarget(e.target)) {
+          cursor.classList.remove('is-hovered');
+        }
+      });
+  
+      document.addEventListener('mousedown', (e) => {
+        if (isHoverTarget(e.target)) {
+          cursor.classList.add('is-clicked');
+        }
+      });
+  
+      document.addEventListener('mouseup', () => {
+        cursor.classList.remove('is-clicked');
+      });
+  
+      document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+      });
+  
+      document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+      });
+  
+      tick();
+    }
+  
+    function initCnName() {
+  const el = document.getElementById('cn-name');
+  if (!el) return;
+
+  const text = '李皓珣';
+  el.innerHTML = '';
+
+  [...text].forEach((char, index) => {
+    const span = document.createElement('span');
+    span.className = 'cn-char';
+    span.textContent = char;
+    span.style.setProperty('--delay', `${index * 0.18}s`);
+    el.appendChild(span);
+  });
+}
+function initButterflyRotation() {
+  const cursor = document.getElementById('custom-cursor');
+  if (!cursor) return;
+
+  let lastX = null;
+  let lastY = null;
+  let moveTimer = null;
+  let isMoving = false;
+
+  // 静止时恢复收起状态
+  function setIdle() {
+    isMoving = false;
+    cursor.style.backgroundImage = "url('covers/cursor/umbrella-closed.png')";
+    cursor.style.transform = `translate(${lastX ?? 0}px, ${lastY ?? 0}px) translate(-50%, -50%) rotate(0deg) scale(1)`;
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+
+    if (lastX === null) {
+      lastX = x;
+      lastY = y;
+      return;
+    }
+
+    const dx = x - lastX;
+    const dy = y - lastY;
+
+    // 切换为撑开状态
+    if (!isMoving) {
+      isMoving = true;
+      cursor.style.backgroundImage = "url('covers/cursor/umbrella-open.png')";
+    }
+
+    // 计算旋转角度
+    let rotate = 0;
+
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+
+    if (absDx > absDy * 0.5) {
+      // 左右移动：伞向移动方向倾斜
+      // dx > 0 向右，rotate 正数右倾；dx < 0 向左，负数左倾
+      const tilt = Math.min(absDx * 0.8, 30); // 最大倾斜 30°，改这个数字调倾斜幅度
+      rotate = dx > 0 ? tilt : -tilt;
+    }
+
+    cursor.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${rotate}deg) scale(1)`;
+
+    lastX = x;
+    lastY = y;
+
+    // 停止移动后 200ms 恢复收起，改这个数字调延迟
+    clearTimeout(moveTimer);
+    moveTimer = setTimeout(() => setIdle(), 200);
+
+  }, { passive: true });
+}
+
+function initDotGrid() {
+  const host = document.getElementById('dot-grid-bg');
+  if (!host) return;
+
+  const canvas = document.createElement('canvas');
+  host.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const cfg = {
+    dotSize: 4,
+    gap: 18,
+    baseColor: '#E5DAF5',
+    activeColor: '#FFFFFF',
+    proximity: 220,
+    speedTrigger: 100,
+    shockRadius: 250,
+    shockStrength: 5,
+    maxSpeed: 5000,
+    resistance: 550,
+    returnDuration: 2.0,
+  };
+
+  const state = {
+    dots: [],
+    pointer: {
+      x: 0,
+      y: 0,
+      vx: 0,
+      vy: 0,
+      speed: 0,
+      lastTime: 0,
+      lastX: 0,
+      lastY: 0,
+    },
+  };
+
+  const baseRgb = hexToRgb(cfg.baseColor);
+  const activeRgb = hexToRgb(cfg.activeColor);
+
+  function hexToRgb(hex) {
+    const m = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+    if (!m) return { r: 0, g: 0, b: 0 };
+    return {
+      r: parseInt(m[1], 16),
+      g: parseInt(m[2], 16),
+      b: parseInt(m[3], 16),
+    };
+  }
+
+  function resize() {
+    const rect = host.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    canvas.width = Math.floor(rect.width * dpr);
+    canvas.height = Math.floor(rect.height * dpr);
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const cols = Math.floor((rect.width + cfg.gap) / (cfg.dotSize + cfg.gap));
+    const rows = Math.floor((rect.height + cfg.gap) / (cfg.dotSize + cfg.gap));
+    const cell = cfg.dotSize + cfg.gap;
+
+    const gridW = cell * cols - cfg.gap;
+    const gridH = cell * rows - cfg.gap;
+    const extraX = rect.width - gridW;
+    const extraY = rect.height - gridH;
+
+    const startX = extraX / 2 + cfg.dotSize / 2;
+    const startY = extraY / 2 + cfg.dotSize / 2;
+
+    state.dots = [];
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        state.dots.push({
+          cx: startX + x * cell,
+          cy: startY + y * cell,
+          xOffset: 0,
+          yOffset: 0,
+          _busy: false,
+        });
+      }
+    }
+  }
+
+  function draw() {
+    const rect = host.getBoundingClientRect();
+    ctx.clearRect(0, 0, rect.width, rect.height);
+
+    const px = state.pointer.x;
+    const py = state.pointer.y;
+    const proxSq = cfg.proximity * cfg.proximity;
+
+    for (const dot of state.dots) {
+      // 动画位移后的坐标
+      const ox = dot.cx + dot.xOffset;
+      const oy = dot.cy + dot.yOffset;
+      
+      // 计算粒子【原始位置】与鼠标的距离（保证变色和位移同步）
+      const dx = dot.cx - px;
+      const dy = dot.cy - py;
+      const dsq = dx * dx + dy * dy;
+
+      let style = cfg.baseColor;
+
+      if (dsq <= proxSq) {
+        const dist = Math.sqrt(dsq);
+        // 基础线性系数
+        let t = 1 - dist / cfg.proximity;
+        
+        // 【优化】平滑过渡：使用平方函数，使亮光中心更汇聚，边缘衰减更自然
+        t = t * t; 
+
+        const r = Math.round(baseRgb.r + (activeRgb.r - baseRgb.r) * t);
+        const g = Math.round(baseRgb.g + (activeRgb.g - baseRgb.g) * t);
+        const b = Math.round(baseRgb.b + (activeRgb.b - baseRgb.b) * t);
+        style = `rgb(${r},${g},${b})`;
+      }
+
+      ctx.beginPath();
+      ctx.fillStyle = style;
+      ctx.arc(ox, oy, cfg.dotSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  function moveDot(dot, xOffset, yOffset, duration = 1.5) {
+    dot._busy = true;
+    dot.xOffset = xOffset;
+    dot.yOffset = yOffset;
+
+    setTimeout(() => {
+      const startX = dot.xOffset;
+      const startY = dot.yOffset;
+      const start = performance.now();
+
+      function returnStep(now) {
+        const t = Math.min(1, (now - start) / (duration * 1000));
+        const ease = 1 - Math.pow(1 - t, 3);
+
+        dot.xOffset = startX * (1 - ease);
+        dot.yOffset = startY * (1 - ease);
+
+        if (t < 1) {
+          requestAnimationFrame(returnStep);
+        } else {
+          dot.xOffset = 0;
+          dot.yOffset = 0;
+          dot._busy = false;
+        }
+      }
+
+      requestAnimationFrame(returnStep);
+    }, 0);
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    const now = performance.now();
+    const p = state.pointer;
+    const dt = p.lastTime ? now - p.lastTime : 16;
+
+    const dx = e.clientX - p.lastX;
+    const dy = e.clientY - p.lastY;
+
+    let vx = (dx / dt) * 1000;
+    let vy = (dy / dt) * 1000;
+    let speed = Math.hypot(vx, vy);
+
+    if (speed > cfg.maxSpeed) {
+      const scale = cfg.maxSpeed / speed;
+      vx *= scale;
+      vy *= scale;
+      speed = cfg.maxSpeed;
+    }
+
+    p.lastTime = now;
+    p.lastX = e.clientX;
+    p.lastY = e.clientY;
+    p.vx = vx;
+    p.vy = vy;
+    p.speed = speed;
+
+    const rect = host.getBoundingClientRect();
+    p.x = e.clientX - rect.left;
+    p.y = e.clientY - rect.top;
+
+    for (const dot of state.dots) {
+      const dist = Math.hypot(dot.cx - p.x, dot.cy - p.y);
+      if (speed > cfg.speedTrigger && dist < cfg.proximity && !dot._busy) {
+        const pushX = (dot.cx - p.x) + vx * 0.015;
+        const pushY = (dot.cy - p.y) + vy * 0.015;
+        moveDot(dot, pushX / cfg.resistance, pushY / cfg.resistance, cfg.returnDuration);
+      }
+    }
+  }, { passive: true });
+
+  window.addEventListener('click', (e) => {
+    const rect = host.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const cy = e.clientY - rect.top;
+
+    for (const dot of state.dots) {
+      const dist = Math.hypot(dot.cx - cx, dot.cy - cy);
+      if (dist < cfg.shockRadius && !dot._busy) {
+        const falloff = Math.max(0, 1 - dist / cfg.shockRadius);
+        const pushX = (dot.cx - cx) * cfg.shockStrength * falloff / cfg.resistance;
+        const pushY = (dot.cy - cy) * cfg.shockStrength * falloff / cfg.resistance;
+        moveDot(dot, pushX, pushY, cfg.returnDuration);
+      }
+    }
+  });
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+}
+
+function initBgmPlayer() {
+  const audio = document.getElementById('bgm-player');
+  const button = document.getElementById('bgm-toggle');
+
+  if (!audio || !button) return;
+
+  audio.volume = 0.18;
+  let isPlaying = false;
+
+  async function playBgm() {
+    try {
+      await audio.play();
+      isPlaying = true;
+      button.textContent = '暂停 BGM';
+    } catch (err) {
+      console.warn('BGM 播放失败，可能需要用户先交互。', err);
+    }
+  }
+
+  function pauseBgm() {
+    audio.pause();
+    isPlaying = false;
+    button.textContent = '播放 BGM';
+  }
+
+  button.addEventListener('click', () => {
+    if (isPlaying) pauseBgm();
+    else playBgm();
+  });
+}
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTypewriter();
+      initReveal();
+      initMagneticBlobs();
+      initPostCarousels();
+      bindXhsAccountCards();
+      renderXhsStack('dabai');
+      showDetail('dabai');
+      initWxVideoSection();
+      initInteractiveQuiz();
+      initWobbleTitles();
+      initCelebrateParticles();
+      initCustomCursor();
+      initCnName();
+      initButterflyRotation();
+      initDotGrid();
+      initBgmPlayer();
+      initSkillsWordCloud();
+      initCountUp();
+      initSectionHover(); 
+    });
+  </script>
+
+<div id="wx-qr-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-slate-950/45 backdrop-blur-sm">
+  <div class="relative w-[92vw] max-w-md rounded-3xl border border-slate-200/80 bg-white shadow-2xl p-6 sm:p-8">
+    <button
+      type="button"
+      id="wx-qr-close"
+      class="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center transition-colors"
+      aria-label="关闭"
+    >
+      ×
+    </button>
+
+    <p class="text-xs font-medium uppercase tracking-widest text-emerald-600 mb-2">微信视频号二维码</p>
+    <h3 class="font-display text-xl sm:text-2xl font-semibold text-slate-900 mb-4">扫描关注「李大白白白」</h3>
+
+    <div class="flex flex-col items-center gap-4">
+      <img
+        src="covers/wechat/wechat-qr.png"
+        alt="微信视频号二维码"
+        class="w-60 h-60 rounded-2xl border border-slate-200 object-cover bg-white"
+      />
+      <p class="text-sm text-slate-500 text-center leading-relaxed">
+        打开微信 → 扫一扫 → 识别二维码，即可进入视频号主页
+      </p>
+      <p class="text-xs text-slate-400">视频号 ID：sphB2MPGivqB08I</p>
+    </div>
+  </div>
+</div>
+<audio id="bgm-player" loop preload="auto">
+  <source src="covers/bgm/bgm.mp3" type="audio/mpeg">
+</audio>
+
+<button
+  id="bgm-toggle"
+  type="button"
+  class="fixed bottom-4 left-12 z-50 rounded-full border border-slate-200 bg-white/40 backdrop-blur-xl px-3 py-2 text-sm text-slate-700 shadow-lg hover:bg-white transition-all"
+>
+  播放 BGM
+</button>
+
+</body>
+</html>
